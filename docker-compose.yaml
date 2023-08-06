@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:12-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=degt6d
+      - POSTGRES_DB=postgres
+    volumes:
+      - ../pgdata:/var/lib/postgresql/data:rw
