@@ -44,4 +44,5 @@ model Blog {
   content    String
 
   @@unique([authorId, title])
+  @@index([id, authorId])
 }
