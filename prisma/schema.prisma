@@ -42,4 +42,6 @@ model Blog {
   authorId   Int
   title      String
   content    String
+
+  @@unique([authorId, title])
 }
