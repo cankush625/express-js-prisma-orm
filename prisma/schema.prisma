@@ -11,26 +11,38 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username  String   @unique
-  password  String?
-  firstName String?
-  lastName  String?
-  blogs     Blog[]
-  profile   Profile?
+  id         Int       @id @default(autoincrement())
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  email      String    @unique
+  username   String    @unique
+  password   String?
+  firstName  String?
+  lastName   String?
+  isActive   Boolean
+  deletedAt  DateTime?
+  blogs      Blog[]
+  profile    Profile?
 }
 
 model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  bio        String?
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int      @unique
 }
 
 model Blog {
-  id       Int    @id @default(autoincrement())
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId Int
-  content  String
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  author     User     @relation(fields: [authorId], references: [id])
+  authorId   Int
+  title      String
+  content    String
+
+  @@unique([authorId, title])
+  @@index([id, authorId])
 }
